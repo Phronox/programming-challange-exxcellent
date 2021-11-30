@@ -37,6 +37,12 @@ public final class App {
                         String dayWithSmallestTempSpread = Entry.getKeyOfMinimumSpread(data,columnOne,columnTwo);
                         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
                         break;
+                    case "football":
+                        columnOne = "Goals";
+                        columnTwo = "Goals Allowed";
+                        String teamsWithSmallestGoalSpread = Entry.getKeyOfMinimumSpread(data,columnOne,columnTwo);
+                        System.out.printf("Team with smallest goal spread       : %s%n", teamsWithSmallestGoalSpread);
+                        break;
                     default:
                         throw new IllegalArgumentException("Mode " + args[0] +" is not supported");
                 }
@@ -45,7 +51,5 @@ public final class App {
                 throw new IllegalArgumentException("File type is not supported");
             }
         }
-        String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
-        System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
 }
