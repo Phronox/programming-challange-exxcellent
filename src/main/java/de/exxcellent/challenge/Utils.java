@@ -16,6 +16,19 @@ public class Utils {
    */
   public static String[] readFile(String relativeFilePath){
     String[] lines=null;
+    try {
+      ArrayList<String> tmpLines = new ArrayList<String>();
+      BufferedReader reader = new BufferedReader(new FileReader(relativeFilePath));
+      String currentLine = reader.readLine();
+      while (currentLine!=null) {
+        tmpLines.add(currentLine);
+        currentLine = reader.readLine();
+      }
+      reader.close();
+      lines = tmpLines.toArray(new String[tmpLines.size()]);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return lines;
   }
 
@@ -27,6 +40,10 @@ public class Utils {
    * @return the parsed Data or null, if the filetype is not supported
    */
   public static Data parseData(String dataID, char seperator,String[] data){
+    if(dataID.endsWith(".csv")) {
+      CsvData dataObj = new CsvData(dataID, seperator, data);
+      return dataObj;
+    }
     return null;
   }
 

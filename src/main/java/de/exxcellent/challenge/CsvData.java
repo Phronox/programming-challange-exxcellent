@@ -1,17 +1,28 @@
 package de.exxcellent.challenge;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CsvData implements  Data{
   private Map<String, Entry> dataEntries;
   private String dataID;
   private char seperator;
+  private ArrayList<String>columnNames;
 
   public CsvData() {
+    dataEntries= new HashMap<>();
   }
 
-  public CsvData(String DataID, char seperator, String[] data) {
+  /**
+   *
+   * @param dataID  data identifyer and filetype descriptor
+   * @param seperator the char that seperates the columns
+   * @param data  the data to be parsed. First line must contain the column names
+   */
+  public CsvData(String dataID, char seperator, String[] data) {
+    setData(dataID,seperator,data);
   }
 
   @Override
@@ -24,9 +35,34 @@ public class CsvData implements  Data{
     return dataID;
   }
 
+  /**
+   *
+   * @param dataID  data identifyer and filetype descriptor
+   * @param seperator the char that seperates the columns
+   * @param data  the data to be parsed. First line must contain the column names
+   */
   @Override
-  public void setData(String DataID, char seperator, String[] data) {
-
+  public void setData(String dataID, char seperator, String[] data) {
+    if(data.length <1){
+      throw new IllegalArgumentException("Parameter data must contain at least one line (the column names)");
+    }
+    this.dataID=dataID;
+    this.seperator=seperator;
+    dataEntries= new HashMap<>();
+    columnNames =new ArrayList<>(Arrays.asList(data[0].split(Character.toString(seperator))));
+    if (data.length>1){
+      for(int i = 1; i<data.length; i++){
+        String[] thisLine = data[i].split(Character.toString(seperator));
+        if(thisLine.length>1) {
+          ArrayList<Float>entries = new ArrayList<Float>();
+          for(int j = 1; j<thisLine.length; j++){
+            entries.add(Float.parseFloat(thisLine[j]));
+          }
+          Entry lineEntry = new Entry(new ArrayList(columnNames.subList(1,columnNames.size())),thisLine[0],entries);
+          dataEntries.put(thisLine[0],lineEntry );
+        }
+      }
+    }
   }
 
   @Override
@@ -36,17 +72,17 @@ public class CsvData implements  Data{
 
   @Override
   public void addEntry(Entry toAdd) {
-
+    dataEntries.put(toAdd.getEntryID(),toAdd);
   }
 
   @Override
   public void setColumnNames(ArrayList<String> columnNames) {
-
+    this.columnNames=columnNames;
   }
 
   @Override
   public ArrayList<String> getColumnNames() {
-    return null;
+    return columnNames;
   }
 
   @Override

@@ -18,6 +18,12 @@ public final class App {
 
         // Your preparation code …
 
+//        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        String [] lines = Utils.readFile(filePaths.weatherPath);
+        for(String line :lines){
+//            System.out.println(line);
+        }
+
         String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
 
