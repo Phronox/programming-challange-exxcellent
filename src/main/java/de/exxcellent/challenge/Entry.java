@@ -9,7 +9,8 @@ public class Entry {
   private String entryID;
   public Entry(){
   }
-  public Entry(ArrayList<String> columnNames, ArrayList<Float> entries){
+  public
+  Entry(ArrayList<String> columnNames,String entryID, ArrayList<Float> entries){
   }
 
   public Map<String, Float> getEntryMap() {

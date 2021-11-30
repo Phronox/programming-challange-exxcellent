@@ -1,13 +1,16 @@
 package de.exxcellent.challenge;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface Data {
-  void Data();
-  void Data(String DataID, char seperator, String[] data);
-  Map<String, Entry> getData();
-  String getFileName();
+  Map<String, Entry> getDataEntries();
+  String getDataId();
   void setData(String DataID, char seperator, String[] data);
-  void setFileName(String fileName);
+  void setDataID(String dataID);
+  void addEntry(Entry toAdd);
+  void setColumnNames(ArrayList<String> columnNames);
+  ArrayList<String> getColumnNames();
+  void setSeperator(char seperator);
 
 }
