@@ -6,7 +6,7 @@ import java.util.Map;
 public interface Data {
   Map<String, Entry> getDataEntries();
   String getDataID();
-  void setData(String DataID, char seperator, String[] data);
+  void parseData(String DataID, char seperator, String[] data);
   void setDataID(String dataID);
   void addEntry(Entry toAdd);
   void setColumnNames(ArrayList<String> columnNames);

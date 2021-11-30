@@ -1,9 +1,9 @@
 package de.exxcellent.challenge;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class WeatherEntry extends Entry{
+public class WeatherEntry extends Entry {
+
   private float mxt;
   private float mnt;
   private float avt;
@@ -18,8 +18,13 @@ public class WeatherEntry extends Entry{
   private float mn;
   private float r_avslp;
 
-  public WeatherEntry(ArrayList<String> columnNames,String entryID, ArrayList<Float> entries) {
-    super(columnNames,entryID,entries);
+  /**
+   * @param columnNames namees of the columns
+   * @param entryID     entry identifyer
+   * @param entries     content of the columns
+   */
+  public WeatherEntry(ArrayList<String> columnNames, String entryID, ArrayList<Float> entries) {
+    super(columnNames, entryID, entries);
     mxt = entryMap.get("MxT");
     mnt = entryMap.get("MnT");
     avt = entryMap.get("AvT");
