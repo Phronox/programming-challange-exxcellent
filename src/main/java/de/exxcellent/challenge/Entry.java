@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Entry {
-  private Map<String, Float> entryMap;
-  private ArrayList<String> columnNames;
-  private String entryID;
+  protected Map<String, Float> entryMap;
+  protected ArrayList<String> columnNames;
+  protected String entryID;
 
   public Entry(){
   }
@@ -24,6 +24,24 @@ public class Entry {
         entryMap.put(columnNames.get(i),null);
       }
     }
+  }
+
+  public static String getKeyOfMinimumSpread(CsvData data, String columnOne, String columnTwo){
+    String currentMinDayId="";
+    Float minTempSpread = null;
+    for (Entry entry : data.dataEntries.values()){
+      if(minTempSpread!=null){
+        Float deltaTemp = Math.abs(entry.getEntryMap().get(columnOne) - entry.getEntryMap().get(columnTwo));
+        if (minTempSpread > deltaTemp){
+          currentMinDayId = entry.entryID;
+          minTempSpread = deltaTemp;
+        }
+      }else{
+        currentMinDayId = entry.getEntryID();
+        minTempSpread = Math.abs(entry.getEntryMap().get(columnOne) - entry.getEntryMap().get(columnTwo));
+      }
+    }
+    return currentMinDayId;
   }
 
   public Map<String, Float> getEntryMap() {

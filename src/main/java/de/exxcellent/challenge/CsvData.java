@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CsvData implements  Data{
-  private Map<String, Entry> dataEntries;
-  private String dataID;
-  private char seperator;
-  private ArrayList<String>columnNames;
+  protected Map<String, Entry> dataEntries;
+  protected String dataID;
+  protected char seperator;
+  protected ArrayList<String>columnNames;
 
   public CsvData() {
     dataEntries= new HashMap<>();
@@ -31,7 +31,7 @@ public class CsvData implements  Data{
   }
 
   @Override
-  public String getDataId() {
+  public String getDataID() {
     return dataID;
   }
 
@@ -49,7 +49,11 @@ public class CsvData implements  Data{
     this.dataID=dataID;
     this.seperator=seperator;
     dataEntries= new HashMap<>();
-    columnNames =new ArrayList<>(Arrays.asList(data[0].split(Character.toString(seperator))));
+    columnNames = new ArrayList<>();
+    String[] columnNamesTmp = data[0].split(Character.toString(seperator));
+    for (int i = 0; i < columnNamesTmp.length; i++){
+      columnNames.add((columnNamesTmp[i].trim()));
+    }
     if (data.length>1){
       for(int i = 1; i<data.length; i++){
         String[] thisLine = data[i].split(Character.toString(seperator));

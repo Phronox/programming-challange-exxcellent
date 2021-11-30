@@ -50,13 +50,15 @@ class AppTest {
     void parseDataTest(){
         Data readData = Utils.parseData("testData.csv",',', Utils.readFile(filePathTestData));
         Data trueData = getTestDataObject();
-        assertEquals(trueData.getDataId(),readData.getDataId(), "DataId" );
+        assertEquals(trueData.getDataID(),readData.getDataID(), "DataId" );
         assertEquals(trueData.getDataEntries().get("first").getEntryMap().get("test1"),
                      readData.getDataEntries().get("first").getEntryMap().get("test1"), "First entry, first column" );
+        assertEquals(trueData.getDataEntries().get("first").getEntryMap().get("test 2"),
+            readData.getDataEntries().get("first").getEntryMap().get("test 2"), "First entry, second column" );
         assertEquals(trueData.getDataEntries().get("2").getEntryMap().get("test 2"),
             readData.getDataEntries().get("2").getEntryMap().get("test 2"), "Second entry, second column");
-//        assertNotEquals(trueData.getDataEntries().get("3rd").getEntryMap().get("test 2"),
-//            readData.getDataEntries().get("3rd").getEntryMap().get("/"), "Third entry, second column, special char");
+        assertNotEquals(trueData.getDataEntries().get("3rd").getEntryMap().get("test 2"),
+            readData.getDataEntries().get("3rd").getEntryMap().get("test 2"), "Third entry, empty second column");
     }
 
     Data getTestDataObject(){
@@ -64,7 +66,7 @@ class AppTest {
         ArrayList<String> testDataColumnNames = new ArrayList<>(Arrays.asList("test1","test 2"));
         ArrayList<Float> testDataEntriesLineOne= new ArrayList<>(Arrays.asList(1f,2.3f));
         ArrayList<Float> testDataEntriesLineTwo= new ArrayList<>(Arrays.asList(2f,2f));
-        ArrayList<Float> testDataEntriesLineThree= new ArrayList<>(Arrays.asList(1f));
+        ArrayList<Float> testDataEntriesLineThree= new ArrayList<>(Arrays.asList(1f,2f));
         ArrayList<Float> testDataEntriesLineFour= new ArrayList<>(Arrays.asList());
         ArrayList<Float> testDataEntriesLineFive= new ArrayList<>(Arrays.asList(6f,7f));
         CsvData dataObj = new CsvData();
@@ -86,6 +88,10 @@ class AppTest {
         assertEquals("successful", successLabel, "My expectations were not met");
     }
 
+    @Test
+    void runWeather() {
+        App.main("--weather", "weather.csv");
+    }
     @Test
     void runFootball() {
         App.main("--football", "football.csv");
